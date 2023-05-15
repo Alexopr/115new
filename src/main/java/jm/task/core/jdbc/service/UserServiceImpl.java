@@ -4,13 +4,22 @@ import jm.task.core.jdbc.dao.UserDao;
 import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
+import org.hibernate.HibernateException;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    UserDaoHibernateImpl userDaoHibernate = new UserDaoHibernateImpl();
+    private final UserDao userDaoHibernate;
+
+    {
+        try {
+            userDaoHibernate = new UserDaoHibernateImpl();
+        }catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void createUsersTable() {
         userDaoHibernate.createUsersTable();

@@ -99,7 +99,6 @@ public class UserDaoHibernateImpl implements UserDao {
             e.printStackTrace();
             transaction.rollback();
         }
-
         return userList;
     }
 
